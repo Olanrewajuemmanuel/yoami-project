@@ -1,0 +1,25 @@
+{% extends 'skeletons/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if items %}
+    {% for item in items %}
+            <div class="category{{item.category}}">
+                <div class="image-carousel">
+                    {% for img in item.image_set.all %}
+                        <img src="{{img.path_to_img}}" alt="{{img.item_name}}" width="300" />
+                    {% endfor %}
+                </div>
+                <h2>{{ item.title|title }}</h2>
+                <p>{{ item.desc|truncatewords:15 }}</p>
+                <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
+                <b>{{ item.get_category_display }}</b>
+                <a href="#">Add to Cart</a>
+            </div>
+    {% endfor %}
+{% else %}
+    <div class="no-items">
+        <h2>No items to display, please check later.</h2>
+    </div>
+{% endif %}
+{% endblock %}
