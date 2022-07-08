@@ -3,6 +3,7 @@ from tabnanny import verbose
 
 from django.db import models
 from django.utils import timezone
+from .globals import CATEGORIES, OTHERS
 
 # Create your models here.
 
@@ -13,18 +14,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
 
-    HEADWEAR = 'HW'
-    APPARELS = 'APPA'
-    TOYS = 'TOYS'
-    PROPS = 'PROPS'
-    OTHERS = 'OTH'
-    CATEGORIES = [
-        (HEADWEAR, 'HEADWEAR'),
-        (APPARELS, 'APPARELS'),
-        (TOYS,  'TOYS'),
-        (PROPS,  'PROPS'),
-        (OTHERS, 'OTHERS'),
-    ]
+ 
 
     category_name = models.CharField(max_length=5, choices=CATEGORIES, default=OTHERS)
 
