@@ -28,7 +28,7 @@ class StoreIndexViewTests(TestCase):
     def test_view_if_no_item(self):
         """ Checks: status_code, response_content and context. """
         error_msg_if_no_item = "No items to display, please check later."
-        response = self.client.get(reverse('yoami:index'))
+        response = self.client.get(reverse('store_main:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, error_msg_if_no_item)
         self.assertQuerysetEqual(response.context['items'], [])

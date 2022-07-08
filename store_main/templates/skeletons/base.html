@@ -10,7 +10,7 @@
     <nav>
         {% block navbar %}
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="{% url 'store_main:index' %}">Home</a></li>
             <li><a href="#">Cart</a></li>
             <li>
                 {% block filter_info %}
