@@ -1,0 +1,20 @@
+<form action="{% url 'yoami:search' %}" method="get">
+    <input type="text" name="search" placeholder="Search for your favorite anime costumes and props">
+    <div class="filter">
+        Search in:
+        <select name="categories">
+            {% for category in categories %}
+                <option value="{{category.0}}" name="category_name" >{{ category.1 }}</option>
+            {% endfor %}
+        </select>
+        <div class="price_filter">
+            Price range: 
+            <input type="number" name="min" value="0">
+            <input type="number" name="max" value="1000">
+        </div>
+    </div>
+    <button>Search</button>
+</form>
+
+
+
