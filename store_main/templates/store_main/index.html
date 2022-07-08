@@ -1,20 +1,47 @@
 {% extends 'skeletons/base.html' %}
 {% load static %}
 
+{% block filter_info %}
+<form action="{% url 'yoami:search' %}" method="get">
+    <input type="text" name="search" placeholder="Search for your favorite anime costumes and props">
+    <div class="filter">
+        Search in:
+        <select name="categories">
+            {% for category in categories %}
+                <option value="{{category.0}}" name="category_name" >{{ category.1 }}</option>
+            {% endfor %}
+        </select>
+        <div class="price_filter">
+            Price range: 
+            <input type="number" name="min" value="0">
+            <input type="number" name="max" value="1000">
+        </div>
+    </div>
+    <button>Submit</button>
+</form>
+
+
+{% endblock %}
+
 {% block content %}
 {% if items %}
     {% for item in items %}
-            <div class="category{{item.category}}">
+            <div class="item-card">
                 <div class="image-carousel">
                     {% for img in item.image_set.all %}
                         <img src="{{img.path_to_img}}" alt="{{img.item_name}}" width="300" />
                     {% endfor %}
                 </div>
-                <h2>{{ item.title|title }}</h2>
-                <p>{{ item.desc|truncatewords:15 }}</p>
-                <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
-                <b>{{ item.get_category_display }}</b>
-                <a href="#">Add to Cart</a>
+                <div class="item-info">
+                    <h2>{{ item.title|title }}</h2>
+                    <p>{{ item.desc|truncatewords:15 }}</p>
+                    <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
+                    {% for category in item.category.all %}
+                        <em class="{{ category.category_name }}">{{ category.get_category_name_display }}</em>
+                    {% endfor %}
+                    <a href="#">Add to Cart</a>
+                </div>
+                
             </div>
     {% endfor %}
 {% else %}

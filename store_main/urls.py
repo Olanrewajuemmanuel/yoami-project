@@ -7,5 +7,6 @@ from django.conf.urls.static import static
 app_name = 'yoami'
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
+    path('', views.index_view, name='index'),
+    path('search/', views.search_detail, name="search")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

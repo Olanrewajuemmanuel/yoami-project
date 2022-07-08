@@ -11,8 +11,11 @@
         {% block navbar %}
         <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">Search</a></li>
             <li><a href="#">Cart</a></li>
+            <li>
+                            {% block filter_info %}
+                            {% endblock %}  
+            </li>
         </ul>
         {% endblock %}
     </nav>

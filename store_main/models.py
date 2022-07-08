@@ -29,8 +29,8 @@ class Category(models.Model):
     category_name = models.CharField(max_length=5, choices=CATEGORIES, default=OTHERS)
 
 class Item(models.Model):
-    
     category = models.ManyToManyField(Category)
+
     price = models.DecimalField(max_digits=8, decimal_places=2)
     discount_percentage = models.IntegerField(default=0)
     desc = models.TextField(max_length=1024)
@@ -46,7 +46,9 @@ class Item(models.Model):
         return now - datetime.timedelta(days=1) <= self.date_added <= now
 
 
+
 class Image(models.Model):
     item_name = models.ForeignKey(Item, on_delete=models.PROTECT)
     path_to_img = models.FileField(upload_to='uploads/')
     date_created = models.DateTimeField()
+
