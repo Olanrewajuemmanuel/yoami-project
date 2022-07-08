@@ -49,6 +49,6 @@ class Item(models.Model):
 
 class Image(models.Model):
     item_name = models.ForeignKey(Item, on_delete=models.PROTECT)
-    path_to_img = models.FileField(upload_to='uploads/')
+    path_to_img = models.ImageField(upload_to='uploads/')
     date_created = models.DateTimeField()
 
