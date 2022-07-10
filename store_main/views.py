@@ -1,7 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render
 
-from .models import Item, Category
+from .models import Item
 from .globals import CATEGORIES
 
 # Create your views here.
@@ -12,7 +12,7 @@ def index_view(request):
 
     context = {
         'items': Item.objects.filter(date_added__lte=timezone.now()).order_by("-date_added"),
-        'categories': CATEGORIES
+        'categories': CATEGORIES,
     }
 
     return render(request, template_name, context)
@@ -29,7 +29,7 @@ def search_detail(request):
         min_price_filter = request.GET['min']
         max_price_filter = request.GET['max']
 
-        found_items = Item.objects.filter(title__icontains=item_name, category__category_name=item_category, price__range=(
+        found_items = Item.objects.filter(title__icontains=item_name, price__range=(
             min_price_filter, max_price_filter)).order_by("-date_added")[:30]
         context['found_items'] = found_items
     except (KeyError, Item.DoesNotExist):

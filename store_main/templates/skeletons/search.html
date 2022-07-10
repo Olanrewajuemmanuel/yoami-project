@@ -2,7 +2,7 @@
     <input type="text" name="search" placeholder="Search for your favorite anime costumes and props">
     <div class="filter">
         Search in:
-        <select name="categories">
+        <select name="categories" multiple>
             {% for category in categories %}
                 <option value="{{category.0}}" name="category_name" >{{ category.1 }}</option>
             {% endfor %}
