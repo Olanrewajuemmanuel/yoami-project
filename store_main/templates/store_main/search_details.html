@@ -9,6 +9,7 @@
 
 {% if error_msg %}
     {{ error_msg }}
+    <div>Some items</div>
 
 
 {% elif found_items %}
@@ -33,10 +34,6 @@
     </div>
     {% endfor %}
 </div>
-
-{% else %}
-<p>No item matched your search</p>
-<div>Some items</div>
 
 {% endif %}
 {% endblock %}
