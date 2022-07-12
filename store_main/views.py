@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django.shortcuts import render
+from django.views import generic
 
 from .models import Item
 from .globals import CATEGORIES
@@ -29,13 +30,12 @@ def search_detail(request):
         if form.is_valid():
             item_name = form.cleaned_data['item_name']
             item_category = form.cleaned_data['category']
-            min_price = form.cleaned_data['price_min'] or 0
+            min_price = form.cleaned_data['price_min'] or 0 # optional, if field was left blank
             max_price = form.cleaned_data['price_max'] or 1000
         try:
             found_items = Item.objects.filter(title__icontains=item_name, category__category_name__in=item_category, price__range=(
                 min_price, max_price)).order_by("-date_added").distinct()
             context['found_items'] = found_items
-            print(found_items)
         except (KeyError, Item.DoesNotExist):
             context['error_msg'] = "There was an error fetching the item. Please try again later."
         else:
@@ -44,3 +44,8 @@ def search_detail(request):
     context['form'] = form
 
     return render(request, template_name, context)
+
+class ItemDetailView(generic.DetailView):
+    template_name = 'store_main/item_details.html'
+    model = Item
+

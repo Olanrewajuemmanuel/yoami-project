@@ -11,11 +11,11 @@
             <div class="item-card">
                 <div class="image-carousel">
                     {% for img in item.image_set.all %}
-                        <img src="{{img.path_to_img}}" alt="{{img.item_name}}" width="300" />
+                        <img src="{{ img.path_to_img.url }}" alt="{{img.item_name}}" width="300" />
                     {% endfor %}
                 </div>
                 <div class="item-info">
-                    <h2>{{ item.title|title }}</h2>
+                    <h2><a href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h2>
                     <p>{{ item.desc|truncatewords:15 }}</p>
                     <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
                     {% for category in item.category.all %}
