@@ -5,7 +5,7 @@
 <div class="item-card">
     <div class="image-carousel">
         {% for img in item.image_set.all %}
-            <img src="{{img.path_to_img.url}}" alt="{{img.item_name}}" width="300" />
+            <img src="{{ img.path_to_img.url }}" alt="{{img.item_name}}" width="300" />
         {% endfor %}
 
     </div>
