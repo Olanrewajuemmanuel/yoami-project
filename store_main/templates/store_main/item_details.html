@@ -10,7 +10,7 @@
 
     </div>
     <div class="item-info">
-        <h2><a href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h2>
+        <h2>{{ item.title|title }}</h2>
         <p>{{ item.desc|truncatewords:15 }}</p>
         <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
         {% for category in item.category.all %}
@@ -18,11 +18,16 @@
         {% endfor %}
         <a href="#">Add to Cart</a>
     </div>
-    
+    <div class="customize">
+        Customize {{item.title}}
+    </div>
+    <div class="reviews">
+        Reviews of {{ item.title }}
+    </div>
 </div>
 
 {% else %}
-<p>No item to view</p>
+<p>No product to view.</p>
 
 {% endif %}
 {% endblock %}

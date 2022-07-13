@@ -42,3 +42,6 @@ class Image(models.Model):
     path_to_img = models.ImageField(upload_to='uploads/')
     date_created = models.DateTimeField()
 
+    def __str__(self):
+        return self.item_name.title
+

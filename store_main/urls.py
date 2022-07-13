@@ -9,6 +9,6 @@ app_name = 'store_main'
 urlpatterns = [
     path('', views.index_view, name='index'),
     path('search/', views.search_detail, name="search"),
-    path('<int:pk>/', views.ItemDetailView.as_view(), name="item_detail"),
+    path('details/<int:pk>/', views.ItemDetailView.as_view(), name="item_detail"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

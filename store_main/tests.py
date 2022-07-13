@@ -32,3 +32,15 @@ class StoreIndexViewTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, error_msg_if_no_item)
         self.assertQuerysetEqual(response.context['items'], [])
+
+class StoreItemDetailViewTest(TestCase):
+    """ Tests for the item detail page. """
+
+    def test_view_if_no_item_to_view(self):
+        error_msg = "No product to view."
+        new_item = create_item_model(timezone.now())
+
+        response = self.client.get(reverse('store_main:item_detail', args=[new_item.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, error_msg)
+        self.assertQuerysetEqual(response.context['items'], [])
