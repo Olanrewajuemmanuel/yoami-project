@@ -18,12 +18,12 @@ def user_login(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            print(request.POST)
             user = authenticate(username=email, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('store_main:index')
-            print("User not authenticated")
+            messages.error(request, "Error logging you in. Username or password may be incorrect.")
+            messages.error(request, None) # clear messages
     else:
         form = UserLoginForm()
     return render(request, template_name, { 'form': form })
@@ -44,7 +44,9 @@ def user_register(request):
 
             login(request, user)
             return redirect('store_main:index')
+            
         messages.error(request, "Unsuccessful registration. Please try again later.")
+        messages.error(request, None)
     else:
         # any other type of request
         form = UserRegistrationForm()
