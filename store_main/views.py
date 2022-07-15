@@ -2,7 +2,6 @@ from django.utils import timezone
 from django.shortcuts import render
 from django.views import generic
 from django.http import Http404
-from django.contrib.auth.decorators import login_required
 
 from .models import Item
 from .globals import CATEGORIES
@@ -10,7 +9,6 @@ from .forms import SearchItemForm
 
 # Create your views here.
 
-@login_required(login_url='/auth/login')
 def index_view(request):
     template_name = 'store_main/index.html'
 

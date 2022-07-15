@@ -4,7 +4,7 @@ from django.core import validators
 
 
     
-class UserForm(forms.Form):
+class UserRegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=255)
     last_name = forms.CharField(max_length=255)
     email = forms.EmailField(max_length=255)
@@ -17,5 +17,9 @@ class UserForm(forms.Form):
         password2 = cleaned_data.get("password2")
         if password1 != password2:
             raise ValidationError("Passwords do not match")
+
+class UserLoginForm(forms.Form):
+    email = forms.EmailField(max_length=255)
+    password = forms.CharField(max_length=1024, widget=forms.PasswordInput)
 
 

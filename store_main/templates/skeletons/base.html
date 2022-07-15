@@ -13,9 +13,19 @@
             <li><a href="{% url 'store_main:index' %}">Home</a></li>
             <li><a href="#">Cart</a></li>
             <li>
+                <!-- Search -->
                 {% block filter_info %}
                 {% endblock %}  
             </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'users:logout' %}">Log out</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'users:login' %}">Login</a>
+            </li>
+            {% endif %}
         </ul>
         {% endblock %}
     </nav>
