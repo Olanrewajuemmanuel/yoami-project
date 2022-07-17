@@ -26,7 +26,9 @@
                     {% for category in item.category.all %}
                         <em class="{{ category.category_name }}">{{ category.get_category_name_display }}</em>
                     {% endfor %}
-                    <a href="#">Add to Cart</a>
+                    <div class="add-cart">
+                        <a id="cart-btn" href="#">Add to Cart</a>
+                    </div>
                 </div>
                 
             </div>
@@ -36,4 +38,21 @@
         <h2>No items to display, please check later.</h2>
     </div>
 {% endif %}
+<script>
+    var user = JSON.stringify('{{ user }}');
+    console.log(user)
+    var cartBtns = document.querySelectorAll('#cart-btn');
+    cartBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            if (JSON.parse(user) === "AnonymousUser") {
+                e.preventDefault() // Do not go to any URL
+                return triggerModal()
+            }
+        })
+    })
+
+    function triggerModal() {
+        alert('You must be logged in to add to cart')
+    }
+</script>
 {% endblock %}

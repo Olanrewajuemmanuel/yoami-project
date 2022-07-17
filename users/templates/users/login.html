@@ -1,6 +1,7 @@
 {% for message in messages %}
 {{ message }}
 {% endfor %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
