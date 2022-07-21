@@ -31,10 +31,18 @@
             <div class="item-info">
                 <h3><a class="text text-dark text-decoration-none fs-6" href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h3>
                 <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
-                <div class="add-cart">
-                    <a id="cart-btn" class="yoami-btn yoami-btn-full-width" href="#">Add to Cart</a>
-                </div>
             </div>
+            <div class="add-cart">
+                <a id="cart-btn" class="yoami-btn yoami-btn-full-width" href="#"
+                  >Add to Cart</a>
+
+                <div class="update-cart d-flex justify-content-between">
+                    <button id="add-item-btn" class="yoami-btn square-btn">-</button>
+                    <p>Qty</p>
+                    <button id="remove-item--btn" class="yoami-btn square-btn">+</button>
+                </div>
+              </div>
+              
             
         </div>
     {% endfor %}
@@ -50,6 +58,6 @@
     
 </div>
 {% block scripts %}
+    {{ request.user.id|json_script:"user_id" }}
     <script src="{% static 'yoami/js/cart.js' %}"></script>
-
-    {% endblock %}
+{% endblock%}

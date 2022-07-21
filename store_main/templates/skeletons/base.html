@@ -48,9 +48,13 @@
 
       <div class="auth">
         {% if user.is_authenticated %}
-        <p>
+        <div class="dropdown">
             <img src="{% static 'images/profile.png' %}" width="30" />
-            Hello, {{ user.first_name|title }}</p>
+            Hello, {{ user.first_name|title }}
+            <div class="dropdown-content">
+              <a class="text-decoration-none text-dark" href="{% url 'users:logout' %}">Log out</a>
+            </div>
+        </div>
         {% else %}
         <p>
           <a href="{% url 'users:login' %}" class="yoami-btn yoami-btn-blue">Login</a>
