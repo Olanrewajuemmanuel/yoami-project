@@ -7,52 +7,49 @@
 
 
 {% block content %}
-{% if user.is_authenticated %}
-    Hello, {{ user.first_name|title }}
-    Profile
-{% endif %}
-{% if items %}
-    {% for item in items %}
-            <div class="item-card">
-                <div class="image-carousel">
-                    {% for img in item.image_set.all %}
-                        <img src="{{ img.path_to_img.url }}" alt="{{img.item_name}}" width="300" />
-                    {% endfor %}
-                </div>
-                <div class="item-info">
-                    <h2><a href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h2>
-                    <p>{{ item.desc|truncatewords:15 }}</p>
-                    <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
-                    {% for category in item.category.all %}
-                        <em class="{{ category.category_name }}">{{ category.get_category_name_display }}</em>
-                    {% endfor %}
-                    <div class="add-cart">
-                        <a id="cart-btn" href="#">Add to Cart</a>
-                    </div>
-                </div>
-                
-            </div>
-    {% endfor %}
-{% else %}
-    <div class="no-items">
-        <h2>No items to display, please check later.</h2>
-    </div>
-{% endif %}
-<script>
-    var user = JSON.stringify('{{ user }}');
-    console.log(user)
-    var cartBtns = document.querySelectorAll('#cart-btn');
-    cartBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            if (JSON.parse(user) === "AnonymousUser") {
-                e.preventDefault() // Do not go to any URL
-                return triggerModal()
-            }
-        })
-    })
+<div class="container bg-dark mt-3">
+    <div class="d-flex justify-content-center p-5">
+        <div class="col-9">
+            <h3 class="text text-white">OTAKU Assemble! Best Deals this Friday for your anime props and wears</h3>
+        </div>
+        <div class="col-3">
+                <a class="yoami-btn yoami-btn-white">Start Shopping</a>
 
-    function triggerModal() {
-        alert('You must be logged in to add to cart')
-    }
-</script>
-{% endblock %}
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    {% if items %}
+    <div class="row row-12">
+        {% for item in items %}
+        <div class="item-card col-4 my-3">
+            <div class="position-relative" >
+                    <img src="{{ item.image_set.first.path_to_img.url }}"  alt="{{item.image_set.first.item_name}}" width="300" height="300" />
+                    <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">-33%</span>
+            </div>
+            <div class="item-info">
+                <h3><a class="text text-dark text-decoration-none fs-6" href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h3>
+                <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
+                <div class="add-cart">
+                    <a id="cart-btn" class="yoami-btn yoami-btn-full-width" href="#">Add to Cart</a>
+                </div>
+            </div>
+            
+        </div>
+    {% endfor %}
+    </div>
+        
+    {% else %}
+        <div class="no-items">
+            <h2>No items to display, please check later.</h2>
+        </div>
+    {% endif %}
+    
+    {% endblock %}
+    
+</div>
+{% block scripts %}
+    <script src="{% static 'yoami/js/cart.js' %}"></script>
+
+    {% endblock %}

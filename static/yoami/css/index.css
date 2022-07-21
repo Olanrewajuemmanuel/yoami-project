@@ -1,0 +1,89 @@
+:root {
+    --primary-color: #B21717;
+    --secondary-color: #3FBCD8;
+}
+.yoami-btn {
+    width: 150px;
+    background-color: var(--primary-color);
+    border: 0;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+.yoami-btn:hover {
+  opacity: .8;
+  transition: all 500ms;
+}
+.yoami-btn-blue {
+    background-color: var(--secondary-color);
+    color: white;
+    height: 40px;
+}
+.yoami-btn-white {
+    background-color: white;
+    color: black;
+    height: 50px;
+}
+.yoami-btn-full-width {
+    width: 100% !important;
+    height: 40px;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 1em 2em;
+}
+.menu-items {
+  width: 80%;
+  margin-left: auto;
+}
+.menu-items ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.menu-items ul li {
+  margin-right: 60px;
+}
+
+.search-form {
+  display: flex;
+  justify-content: space-between;
+}
+.search-bar {
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  width: 500px;
+}
+.search-bar input {
+  width: 445px;
+  border: none;
+  outline: none;
+}
+.cart-li {
+    position: relative;
+}
+
+.addon {
+    background-color: #363636;
+    padding: .5em;
+    display: inline-block;
+    cursor: pointer;
+}
+#cart-btn {
+    border: 1px solid var(--primary-color);
+    background-color: white;
+    color: black;
+}
+#cart-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
