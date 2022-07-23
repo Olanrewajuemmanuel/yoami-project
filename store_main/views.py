@@ -49,3 +49,11 @@ class ItemDetailView(generic.DetailView):
     template_name = 'store_main/item_details.html'
     model = Item
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SearchItemForm()
+
+        return context
+
+
+

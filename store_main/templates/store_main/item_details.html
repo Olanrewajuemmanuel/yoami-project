@@ -1,5 +1,10 @@
 {% extends 'skeletons/base.html' %}
 
+{% block filter_info %}
+    {% include 'skeletons/search.html' %}
+{% endblock %}
+
+
 {% block content %}
 {% if item %}
 <div class="item-card">
