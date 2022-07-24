@@ -33,14 +33,8 @@
                 <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
             </div>
             <div class="add-cart">
-                <a id="cart-btn" class="yoami-btn yoami-btn-full-width" href="#"
+                <a id="cart-btn" class="yoami-btn yoami-btn-full-width" data-req-type="add" data-item-id="{{ item.id }}"
                   >Add to Cart</a>
-
-                <div class="update-cart d-flex justify-content-between">
-                    <button id="add-item-btn" class="yoami-btn square-btn">-</button>
-                    <p>Qty</p>
-                    <button id="remove-item--btn" class="yoami-btn square-btn">+</button>
-                </div>
               </div>
               
             

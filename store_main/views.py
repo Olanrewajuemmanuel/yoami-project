@@ -4,6 +4,7 @@ from django.views import generic
 from django.http import Http404
 
 from .models import Item
+from cart.models import CartItem
 from .globals import CATEGORIES
 from .forms import SearchItemForm
 
@@ -15,6 +16,7 @@ def index_view(request):
     context = {
         'items': Item.objects.filter(date_added__lte=timezone.now()).order_by("-date_added"),
         'form': SearchItemForm(),
+        'cart_qty': CartItem.objects.filter(user=request.user).count()
     }
 
     return render(request, template_name, context)
@@ -42,6 +44,8 @@ def search_detail(request):
             context['error_msg'] = form.errors
 
     context['form'] = form
+    context['cart_qty'] = CartItem.objects.filter(user=request.user).count()
+
 
     return render(request, template_name, context)
 
@@ -52,6 +56,8 @@ class ItemDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = SearchItemForm()
+        context['cart_qty'] = CartItem.objects.filter(user=self.request.user).count()
+
 
         return context
 

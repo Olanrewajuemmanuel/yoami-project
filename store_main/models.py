@@ -7,8 +7,6 @@ from .globals import CATEGORIES, OTHERS
 
 # Create your models here.
 
-# TODO: Add category -> many items *-* many categories
-
 class Category(models.Model):
 
     class Meta:
