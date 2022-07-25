@@ -36,4 +36,6 @@
   </nav>
     {% block content %}
     {% endblock %}
+    {{ request.user.id|json_script:"user_id" }}
+    <script src="{% static 'yoami/js/cart.js' %}"></script>
 </body>

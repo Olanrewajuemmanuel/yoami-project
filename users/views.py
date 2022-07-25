@@ -1,5 +1,5 @@
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -38,10 +38,12 @@ def user_register(request):
             email = form.cleaned_data['email']
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
-            password1 = form.cleaned_data['password1']
+            password1 = make_password(form.cleaned_data['password1']) # hashing algorithm from Django
             user = User.objects.create(
                 email=email, first_name=first_name, last_name=last_name, password=password1)
             user.username = email
+            # Create a user cart
+            user.cartitem_set.create(user=user)
             user.save()
 
             login(request, user)

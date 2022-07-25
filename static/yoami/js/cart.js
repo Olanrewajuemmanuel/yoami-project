@@ -19,8 +19,10 @@ function getCookie(name) {
 }
 
 const cartBtns = document.querySelectorAll("#chg-cart");
-const quantityDisplay = document.querySelectorAll('.qty-display')
-const CART_URL = "cart/update-cart/";
+const quantityDisplay = document.querySelectorAll('.item_qty')
+const itemCard = document.querySelectorAll('.item')
+const CART_URL = window.location.pathname == "/cart/" ? "update-cart/" : '/cart/update-cart/';
+
 cartBtns.forEach((btn, idx) => {
   btn.addEventListener("click", () => {
     if (!user_id) {
@@ -30,7 +32,7 @@ cartBtns.forEach((btn, idx) => {
       // send the req-type and item id, return qty and status code
       let reqType = btn.dataset.reqType;
       let itemId = btn.dataset.itemId;
-      console.log(reqType, itemId);
+      let loop = btn.dataset.loop;
       const csrftoken = getCookie("csrftoken");
 
       fetch(CART_URL, {
@@ -44,7 +46,8 @@ cartBtns.forEach((btn, idx) => {
       })
         .then((response) => response.json())
         .then(data => {
-          console.log(data)
+          alert("Cart updated")
+          quantityDisplay[loop-1].textContent = data['quantity'] // Go back once, index is -1 loop no.
         })
         .catch((err) => console.error(err));
     }

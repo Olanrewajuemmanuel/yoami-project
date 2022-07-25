@@ -1,9 +1,8 @@
 {% extends 'skeletons/cart-base.html' %}
 
 {% block content %}
-
 <div class="container">
-  {% if cart_items_list %} {% for cart_item in cart_items_list %}
+  {% if user_cart %} {% for cart_item in user_cart.cartitem_set.all %}
   <div class="item card p-4 m-3">
     <div class="row">
       <div class="col">
@@ -18,7 +17,7 @@
       <div class="col">
         <a
           class="fw-bold"
-          href="{% url 'store_main:item_detail' cart_item.saved_item.id %}"
+          href="#"
           >{{ cart_item.saved_item.title }}</a
         >
       </div>
@@ -28,16 +27,19 @@
           data-req-type="remove"
           data-item-id="{{ cart_item.saved_item.id }}"
           class="btn btn-outline-danger me-3"
+          data-loop="{{forloop.counter}}"
         >
           -
         </button>
 
-        {{ cart_item.item_qty }}
+        <span class="item_qty">{{ cart_item.item_qty }}</span>
         <button
           id="chg-cart"
           data-req-type="add"
           data-item-id="{{ cart_item.saved_item.id }}"
           class="btn btn-outline-danger ms-3"
+          data-loop="{{forloop.counter}}"
+
         >
           +
         </button>
@@ -45,7 +47,7 @@
       <div class="col">${{ cart_item.saved_item.price }}</div>
       <div class="col">
         <a href="#" class="mx-3">Checkout</a>
-        <a href="#" class="text-danger">Remove</a>
+        <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger">Remove</a>
       </div>
     </div>
   </div>
