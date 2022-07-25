@@ -17,8 +17,7 @@ class CartListView(generic.ListView):
 
     def get_queryset(self):
         # Get user's cart list
-        print(self.kwargs)
-        return CartItem.objects.filter(user=self.request.user)
+        return CartItem.objects.filter(user=self.request.user) if self.request.user.is_authenticated else 0
 
 def update_cart_view(request):
     user = request.user

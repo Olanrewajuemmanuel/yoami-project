@@ -26,14 +26,14 @@
         <div class="item-card col-4 my-3">
             <div class="position-relative" >
                     <img src="{{ item.image_set.first.path_to_img.url }}"  alt="{{item.image_set.first.item_name}}" width="300" height="300" />
-                    <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">-33%</span>
+                    <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">-{{item.discount_percentage}}%</span>
             </div>
             <div class="item-info">
                 <h3><a class="text text-dark text-decoration-none fs-6" href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h3>
                 <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
             </div>
             <div class="add-cart">
-                <a id="cart-btn" class="yoami-btn yoami-btn-full-width" data-req-type="add" data-item-id="{{ item.id }}"
+                <a id="chg-cart" class="cart-btn yoami-btn yoami-btn-full-width" data-req-type="add" data-item-id="{{ item.id }}"
                   >Add to Cart</a>
               </div>
               

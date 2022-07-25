@@ -18,7 +18,7 @@ function getCookie(name) {
   return cookieValue;
 }
 
-const cartBtns = document.querySelectorAll("#cart-btn");
+const cartBtns = document.querySelectorAll("#chg-cart");
 const quantityDisplay = document.querySelectorAll('.qty-display')
 const CART_URL = "cart/update-cart/";
 cartBtns.forEach((btn, idx) => {
@@ -30,6 +30,7 @@ cartBtns.forEach((btn, idx) => {
       // send the req-type and item id, return qty and status code
       let reqType = btn.dataset.reqType;
       let itemId = btn.dataset.itemId;
+      console.log(reqType, itemId);
       const csrftoken = getCookie("csrftoken");
 
       fetch(CART_URL, {
@@ -43,9 +44,6 @@ cartBtns.forEach((btn, idx) => {
       })
         .then((response) => response.json())
         .then(data => {
-          // update QTY on front page
-          qty = data['quantity']
-          quantityDisplay[idx].textContent = qty
           console.log(data)
         })
         .catch((err) => console.error(err));

@@ -16,7 +16,7 @@ def index_view(request):
     context = {
         'items': Item.objects.filter(date_added__lte=timezone.now()).order_by("-date_added"),
         'form': SearchItemForm(),
-        'cart_qty': CartItem.objects.filter(user=request.user).count()
+        'cart_qty': CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
     }
 
     return render(request, template_name, context)
@@ -44,7 +44,7 @@ def search_detail(request):
             context['error_msg'] = form.errors
 
     context['form'] = form
-    context['cart_qty'] = CartItem.objects.filter(user=request.user).count()
+    context['cart_qty'] = CartItem.objects.filter(user=request.user).count() if request.user.is_authenticated else 0
 
 
     return render(request, template_name, context)
@@ -56,7 +56,7 @@ class ItemDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = SearchItemForm()
-        context['cart_qty'] = CartItem.objects.filter(user=self.request.user).count()
+        context['cart_qty'] = CartItem.objects.filter(user=self.request.user).count() if self.request.user.is_authenticated else 0
 
 
         return context

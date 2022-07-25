@@ -1,10 +1,27 @@
-{% for message in messages %}
-{{ message }}
+{% extends 'skeletons/users-base.html' %}
+
+
+{% block content %}
+    {% for message in messages %}
+    <p class="alert alert-danger">{{ message }}</p>
 {% endfor %}
 
-<form method="post">
+<div class="container-md">
+<form method="post" class="pt-5">
+    <h1 class="h2">Login</h1>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button>Log in</button>
+    <div class="row">
+        {% for field in form %}
+        <div class="col-md-4 p-3">
+             <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            </div>
+        </div>
+    {% endfor %}
+    </div>  
+    <button class="yoami-btn my-3 p-2">Log in</button>
 </form>
 <a href="{% url 'users:register' %}">Don't have an account yet? Register</a>
+</div>
+{% endblock %}

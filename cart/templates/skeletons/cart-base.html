@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'yoami/css/index.css' %}" />
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <title>
+      {% block title %} Yoami - Cart {% endblock %}
+    </title>
+  </head>
+<body>
+  <nav class="container navbar mb-3">
+    <a href="/" class="navbar-brand">Yoami</a>
+    <div class="auth">
+      {% if user.is_authenticated %}
+      <div class="dropdown">
+          <img src="{% static 'images/profile.png' %}" width="30" />
+          Hello, {{ user.first_name|title }}
+          <div class="dropdown-content">
+            <a class="text-decoration-none text-dark" href="{% url 'users:logout' %}">Log out</a>
+          </div>
+      </div>
+      {% else %}
+      <p>
+        <a href="{% url 'users:login' %}" class="yoami-btn yoami-btn-blue">Login</a>
+      </p>
+      {% endif %}
+    </div>
+  </nav>
+    {% block content %}
+    {% endblock %}
+</body>

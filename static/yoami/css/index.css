@@ -94,12 +94,12 @@ nav {
   display: inline-block;
   cursor: pointer;
 }
-#cart-btn {
+.cart-btn {
   border: 1px solid var(--primary-color);
   background-color: white;
   color: black;
 }
-#cart-btn:hover {
+.cart-btn:hover {
   background-color: var(--primary-color);
   color: white;
 }
@@ -107,6 +107,7 @@ nav {
 .dropdown {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .dropdown-content {
