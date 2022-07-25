@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  {% if user_cart %} {% for cart_item in user_cart.cartitem_set.all %}
+  {% if user_cart.cartitem_set.count %} {% for cart_item in user_cart.cartitem_set.all %}
   <div class="item card p-4 m-3">
     <div class="row">
       <div class="col">
