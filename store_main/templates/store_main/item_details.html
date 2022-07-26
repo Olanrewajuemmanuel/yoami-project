@@ -1,38 +1,66 @@
-{% extends 'skeletons/base.html' %}
+{% extends 'skeletons/base.html' %} 
+{% load slash_price %} 
+{% block filter_info%} 
 
-{% block filter_info %}
-    {% include 'skeletons/search.html' %}
-{% endblock %}
+{% include 'skeletons/search.html' %} 
+{% endblock %} {% block content %} 
 
-
-{% block content %}
-{% if item %}
-<div class="item-card">
-    <div class="image-carousel">
-        {% for img in item.image_set.all %}
-            <img src="{{ img.path_to_img.url }}" alt="{{img.item_name}}" width="300" />
-        {% endfor %}
-
-    </div>
-    <div class="item-info">
-        <h2>{{ item.title|title }}</h2>
-        <p>{{ item.desc|truncatewords:15 }}</p>
-        <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
-        {% for category in item.category.all %}
-            <em class="{{ category.category_name }}">{{ category.get_category_name_display }}</em>
-        {% endfor %}
-        <a href="#">Add to Cart</a>
-    </div>
-    <div class="customize">
-        Customize {{item.title}}
-    </div>
-    <div class="reviews">
-        Reviews of {{ item.title }}
-    </div>
+<div class="container">
+{%if item %}
+<div class="item-card mt-5 d-flex justify-content-around align-items-start">
+  <div class="position-relative">
+    <img
+      src="{{ item.image_set.first.path_to_img.url }}"
+      alt="{{item.image_set.first.item_name}}"
+      width="300"
+      height="300"
+      class=""
+    />
+    {% if item.discount_percentage %}
+    <span
+      class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger"
+      >-{{item.discount_percentage}}%</span
+    >
+    {% endif %}
+  </div>
+  <div class="item-info">
+    <h3>
+      <a
+        class="text text-dark text-decoration-none h2"
+        href="{% url 'store_main:item_detail' item.id %}"
+        >{{ item.title|title }}</a
+      >
+    </h3>
+    {% if item.discount_percentage %}
+    <span class="text-strikethrough me-2">${{ item.price }}</span>
+    <span class="fw-bold">${{ item.price|slash_price:item.discount_percentage }}</span>
+    {% else %}
+    <span class="me-2 fw-bold">${{ item.price }}</span>
+    {% endif %}
+    <div class="add-cart">
+        <a
+          id="chg-cart"
+          class="cart-btn yoami-btn yoami-btn-full-width my-3"
+          data-req-type="add"
+          data-item-id="{{ item.id }}"
+          >Add to Cart</a
+        >
+      </div>
+    
+      <div class="desc">
+        <p class="text-underline fs-4">Description</p>
+        {{ item.desc }}</div>
+      <div class="customize mt-3">
+        <p class="text-underline fs-4">Customize item</p>
+        Customization not available for this item.
+      </div>
+  </div>
+  
 </div>
 
 {% else %}
 <p>No product to view.</p>
 
-{% endif %}
+{% endif %} 
+</div>
 {% endblock %}

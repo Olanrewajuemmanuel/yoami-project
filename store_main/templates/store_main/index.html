@@ -1,5 +1,6 @@
 {% extends 'skeletons/base.html' %}
 {% load static %}
+{% load slash_price %}
 
 {% block filter_info %}
     {% include 'skeletons/search.html' %}
@@ -26,11 +27,19 @@
         <div class="item-card col-4 my-3">
             <div class="position-relative" >
                     <img src="{{ item.image_set.first.path_to_img.url }}"  alt="{{item.image_set.first.item_name}}" width="300" height="300" />
+                    {% if item.discount_percentage %}
                     <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">-{{item.discount_percentage}}%</span>
+                    {% endif %}
             </div>
             <div class="item-info">
                 <h3><a class="text text-dark text-decoration-none fs-6" href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h3>
-                <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
+                {% if item.discount_percentage %}
+                    <span class="text-strikethrough me-2">${{ item.price }}</span>
+                    <span>${{ item.price|slash_price:item.discount_percentage }}</span> <!-- TODO: Show discounted price and old price with % -->
+                {% else %}
+                    <span class="me-2">${{ item.price }}</span>
+
+                {% endif %}
             </div>
             <div class="add-cart">
                 <a id="chg-cart" class="cart-btn yoami-btn yoami-btn-full-width" data-req-type="add" data-item-id="{{ item.id }}"

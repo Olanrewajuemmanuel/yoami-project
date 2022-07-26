@@ -7,7 +7,7 @@
 {% block content %}
 
 {% if error_msg %}
-    {{ error_msg }}
+    <p class="alert alert-danger container">{{ error_msg }}</p>
 
 
 {% elif found_items %}
@@ -22,7 +22,7 @@
         <div class="item-info">
             <h2><a href="{% url 'store_main:item_detail' item.id %}">{{ item.title|title }}</a></h2>
             <p>{{ item.desc|truncatewords:15 }}</p>
-            <p>${{ item.price }}</p> <!-- TODO: Show discounted price and old price with % -->
+            <p>${{ item.price }}</p>
             {% for category in item.category.all %}
                 <em class="{{ category.category_name }}">{{ category.get_category_name_display }}</em>
             {% endfor %}

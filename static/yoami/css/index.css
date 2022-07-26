@@ -123,3 +123,7 @@ nav {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+.text-strikethrough {
+  text-decoration: line-through;
+  opacity: .8;
+}

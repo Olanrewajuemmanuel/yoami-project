@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
@@ -7,6 +8,7 @@ from django.contrib import messages
 
 from .forms import UserLoginForm, UserRegistrationForm
 from .decorators import decorators
+from cart.models import Cart
 
 # Create your views here.
 
@@ -39,15 +41,27 @@ def user_register(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             password1 = make_password(form.cleaned_data['password1']) # hashing algorithm from Django
-            user = User.objects.create(
-                email=email, first_name=first_name, last_name=last_name, password=password1)
-            user.username = email
-            # Create a user cart
-            user.cartitem_set.create(user=user)
-            user.save()
+            
+            try:
+                user = User.objects.create(
+                    email=email, first_name=first_name, last_name=last_name, password=password1)
+                user.username = email
 
-            login(request, user)
-            return redirect('store_main:index')
+                # Create a user cart
+                print(user)
+                Cart.objects.create(user=user)
+                user.save()
+
+                # login user and redirect
+                login(request, user)
+                return redirect('store_main:index') 
+                
+            except IntegrityError:
+                messages.error(
+            request, "Unsuccessful registration. Email has already been used.")
+                messages.error(request, None)
+
+            
 
         messages.error(
             request, "Unsuccessful registration. Please try again later.")
