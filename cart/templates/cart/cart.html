@@ -48,10 +48,10 @@
           +
         </button>
       </div>
-      <div class="col">$
+      <div class="col order-price" data-price="{{ cart_item.saved_item.price|slash_price:cart_item.saved_item.discount_percentage }}">$
         {{ cart_item.saved_item.price|slash_price:cart_item.saved_item.discount_percentage }}</div>
       <div class="col">
-        <p class="fw-bold">Total: <span class="total"></span></p>
+        <p class="fw-bold">Total: <span class="total">${{ cart_item.saved_item.price|slash_price:cart_item.saved_item.discount_percentage }}</span></p>
       </div>
       <div class="col">
         <div class="row">

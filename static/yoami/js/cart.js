@@ -21,6 +21,8 @@ function getCookie(name) {
 const cartBtns = document.querySelectorAll("#chg-cart");
 const removeCartBtns = document.querySelectorAll(".remove");
 const quantityDisplay = document.querySelectorAll(".item_qty");
+const orderPrice = document.querySelectorAll(".order-price");
+const total = document.querySelectorAll(".total");
 const itemCard = document.querySelectorAll(".item");
 const CART_URL =
   window.location.pathname == "/cart/" ? "update-cart/" : "/cart/update-cart/";
@@ -32,11 +34,18 @@ cartBtns.forEach((btn, idx) => {
     } else {
       // user is logged in
       // send the req-type and item id, return qty and status code
-      let reqType = btn.dataset.reqType;
-      let itemId = btn.dataset.itemId;
-      let loop = btn.dataset.loop;
-      const csrftoken = getCookie("csrftoken");
+      
+      updateCart(btn)
+        
+    }
+  });
+});
 
+function updateCart(btn) {
+      const csrftoken = getCookie("csrftoken");
+      let reqType = btn.dataset.reqType
+      let itemId = btn.dataset.itemId
+      let loop = btn.dataset.loop
       fetch(CART_URL, {
         method: "POST",
         credentials: "same-origin",
@@ -57,13 +66,20 @@ cartBtns.forEach((btn, idx) => {
           }
 
           quantityDisplay[loop - 1].textContent = data["quantity"]; // Go back once, index is -1 loop no.
+          calcTotal(data['quantity'], orderPrice[loop-1].dataset.price, loop)
+          
+
         })
         .catch((err) => console.error(err));
-    }
-  });
-});
+        }
 
 function triggerModal(msg) {
   $(".message").html(msg);
   $("#YoamiModal").modal("show");
+}
+
+function calcTotal(qty, price, loopNo) {
+  let orderTotal = Number.parseFloat(price) * Number.parseInt(qty)
+  orderTotal = orderTotal.toFixed(2)
+  total[loopNo-1].textContent =  `$${orderTotal}`
 }
