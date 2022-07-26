@@ -1,9 +1,12 @@
 {% extends 'skeletons/base.html' %} 
 {% load slash_price %} 
-{% block filter_info%} 
 
+{% block filter_info%} 
 {% include 'skeletons/search.html' %} 
-{% endblock %} {% block content %} 
+{% endblock %}
+
+
+{% block content %} 
 
 <div class="container">
 {%if item %}
@@ -63,4 +66,5 @@
 
 {% endif %} 
 </div>
+
 {% endblock %}

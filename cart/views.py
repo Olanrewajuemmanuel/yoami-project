@@ -50,4 +50,6 @@ def delete_cart_view(request, cart_item_id):
         cart_item.delete()
     except CartItem.DoesNotExist:
         raise Http404("Cart item does not exist.")
-    return render(request, template_name)
+    
+    user_cart = Cart.objects.get(user=request.user) if request.user.is_authenticated else 0 # send user's cart back to template
+    return render(request, template_name, context={'user_cart': user_cart})

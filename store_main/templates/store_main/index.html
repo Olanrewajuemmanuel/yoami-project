@@ -6,10 +6,6 @@
     {% include 'skeletons/search.html' %}
 {% endblock %}
 
-{% block modal %}
-    {% include 'skeletons/modal.html' %}
-{% endblock %}
-
 {% block content %}
 <div class="container bg-dark mt-3">
     <div class="d-flex justify-content-center p-5">
@@ -63,7 +59,3 @@
     {% endblock %}
     
 </div>
-{% block scripts %}
-    {{ request.user.id|json_script:"user_id" }}
-    <script src="{% static 'yoami/js/cart.js' %}"></script>
-{% endblock%}

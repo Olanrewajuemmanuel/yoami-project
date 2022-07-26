@@ -47,7 +47,8 @@ cartBtns.forEach((btn, idx) => {
         .then((response) => response.json())
         .then(data => {
           triggerModal("Cart Updated")
-          quantityDisplay[loop-1].textContent = data['quantity'] // Go back once, index is -1 loop no.
+          if (quantityDisplay)
+            quantityDisplay[loop-1].textContent = data['quantity'] // Go back once, index is -1 loop no.
         })
         .catch((err) => console.error(err));
     }
