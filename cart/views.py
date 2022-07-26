@@ -30,6 +30,10 @@ def update_cart_view(request):
     user_cart = Cart.objects.get(user=user)
     cart_item, created = CartItem.objects.get_or_create(cart=user_cart, saved_item=item)
     
+    if cart_item.item_qty == 0:
+        cart_item.delete()
+
+
     if action == 'add':
         cart_item.item_qty += 1
         cart_item.save()
@@ -37,8 +41,7 @@ def update_cart_view(request):
         cart_item.item_qty -= 1
         cart_item.save()
     
-    if cart_item.item_qty == 0:
-        cart_item.delete()
+    
 
     return JsonResponse({'quantity': cart_item.item_qty, 'code': 'ok'})
 
@@ -51,5 +54,4 @@ def delete_cart_view(request, cart_item_id):
     except CartItem.DoesNotExist:
         raise Http404("Cart item does not exist.")
     
-    user_cart = Cart.objects.get(user=request.user) if request.user.is_authenticated else 0 # send user's cart back to template
     return render(request, template_name, context={'user_cart': user_cart})

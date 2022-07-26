@@ -19,9 +19,11 @@ function getCookie(name) {
 }
 
 const cartBtns = document.querySelectorAll("#chg-cart");
-const quantityDisplay = document.querySelectorAll('.item_qty')
-const itemCard = document.querySelectorAll('.item')
-const CART_URL = window.location.pathname == "/cart/" ? "update-cart/" : '/cart/update-cart/';
+const removeCartBtns = document.querySelectorAll(".remove");
+const quantityDisplay = document.querySelectorAll(".item_qty");
+const itemCard = document.querySelectorAll(".item");
+const CART_URL =
+  window.location.pathname == "/cart/" ? "update-cart/" : "/cart/update-cart/";
 
 cartBtns.forEach((btn, idx) => {
   btn.addEventListener("click", () => {
@@ -40,15 +42,21 @@ cartBtns.forEach((btn, idx) => {
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
-          'X-CSRFToken': csrftoken,
+          "X-CSRFToken": csrftoken,
         },
         body: JSON.stringify({ reqType, itemId }),
       })
         .then((response) => response.json())
-        .then(data => {
-          triggerModal("Cart Updated")
-          if (quantityDisplay)
-            quantityDisplay[loop-1].textContent = data['quantity'] // Go back once, index is -1 loop no.
+        .then((data) => {
+          triggerModal("Cart Updated, quantity in cart: " + data["quantity"]);
+
+          if (data["quantity"] == 0) {
+            btn.disabled = true; // no value below 0 is allowed
+          } else {
+            removeCartBtns[loop-1].disabled = false // make specific remove button active again
+          }
+
+          quantityDisplay[loop - 1].textContent = data["quantity"]; // Go back once, index is -1 loop no.
         })
         .catch((err) => console.error(err));
     }
@@ -56,6 +64,6 @@ cartBtns.forEach((btn, idx) => {
 });
 
 function triggerModal(msg) {
-  $('.message').html(msg)
-  $('#YoamiModal').modal('show')
+  $(".message").html(msg);
+  $("#YoamiModal").modal("show");
 }

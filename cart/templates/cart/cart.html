@@ -29,7 +29,7 @@
           id="chg-cart"
           data-req-type="remove"
           data-item-id="{{ cart_item.saved_item.id }}"
-          class="btn btn-outline-danger me-3"
+          class="btn btn-outline-danger me-3 remove"
           data-loop="{{forloop.counter}}"
         >
           -
@@ -49,8 +49,8 @@
       </div>
       <div class="col">${{ cart_item.saved_item.price }}</div>
       <div class="col">
-        <a href="#" class="mx-3">Checkout</a>
-        <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger">Remove</a>
+        <a href="#" class="mx-3 text-decoration-none">Checkout</a>
+        <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger text-decoration-none">Remove</a>
       </div>
     </div>
   </div>
