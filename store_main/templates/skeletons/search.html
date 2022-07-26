@@ -2,13 +2,13 @@
 
 <form action="{% url 'store_main:search' %}" method="get" class="search-form">
   <div class="row">
-    <div class="search-bar">
+    <div class="search-bar position-relative">
       <div>{{ form.item_name }}</div>
       <span class="addon">
         <img src="{% static 'images/filter.png' %}" />
       </span>
     </div>
-    <div class="filter" style="display: none">
+    <div class="filter d-none position-absolute bg-light bottom-50">
       <div class="form-group">
         {{ form.category.label_tag }} {{ form.category }}
       </div>
@@ -29,12 +29,7 @@
   const filter = document.querySelector(".filter");
 
   toggleFilterBtn.addEventListener("click", () => {
-    const display = filter.style.display;
-    if (display == "none") {
-      filter.style.display = "block";
-    }
-    if (display == "block") {
-      filter.style.display == "none";
-    }
+    filter.classList.toggle('d-none');
+    
   });
 </script>

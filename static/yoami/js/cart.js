@@ -26,7 +26,7 @@ const CART_URL = window.location.pathname == "/cart/" ? "update-cart/" : '/cart/
 cartBtns.forEach((btn, idx) => {
   btn.addEventListener("click", () => {
     if (!user_id) {
-      alert("You must be logged in to add to cart"); // may change
+      triggerModal("You must be logged in to add to cart"); // may change
     } else {
       // user is logged in
       // send the req-type and item id, return qty and status code
@@ -46,10 +46,15 @@ cartBtns.forEach((btn, idx) => {
       })
         .then((response) => response.json())
         .then(data => {
-          alert("Cart updated")
+          triggerModal("Cart Updated")
           quantityDisplay[loop-1].textContent = data['quantity'] // Go back once, index is -1 loop no.
         })
         .catch((err) => console.error(err));
     }
   });
 });
+
+function triggerModal(msg) {
+  $('.message').html(msg)
+  $('#YoamiModal').modal('show')
+}

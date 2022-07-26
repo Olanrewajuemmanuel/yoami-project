@@ -44,7 +44,7 @@ def search_detail(request):
             context['error_msg'] = form.errors
 
     context['form'] = form
-    context['cart_qty'] = Cart.objects.filter(user=request.user) if request.user.is_authenticated else 0
+    context['cart_qty'] = CartItem.objects.filter(cart__user=request.user).count() if request.user.is_authenticated else 0
 
 
     return render(request, template_name, context)
@@ -56,7 +56,7 @@ class ItemDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = SearchItemForm()
-        context['cart_qty'] = Cart.objects.filter(user=self.request.user).count() if self.request.user.is_authenticated else 0
+        context['cart_qty'] = CartItem.objects.filter(cart__user=self.request.user).count() if self.request.user.is_authenticated else 0
 
 
         return context
