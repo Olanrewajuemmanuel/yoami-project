@@ -1,4 +1,5 @@
 {% extends 'skeletons/cart-base.html' %}
+{% load slash_price %}
 
 {% block modal %}
 {% endblock %}
@@ -47,10 +48,21 @@
           +
         </button>
       </div>
-      <div class="col">${{ cart_item.saved_item.price }}</div>
+      <div class="col">$
+        {{ cart_item.saved_item.price|slash_price:cart_item.saved_item.discount_percentage }}</div>
       <div class="col">
-        <a href="#" class="mx-3 text-decoration-none">Checkout</a>
-        <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger text-decoration-none">Remove</a>
+        <p class="fw-bold">Total: <span class="total"></span></p>
+      </div>
+      <div class="col">
+        <div class="row">
+           <div class="col-6">
+            <a href="#" class="mx-3 text-decoration-none">Checkout</a>
+        </div>
+        <div class="col-6">
+            <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger text-decoration-none">Remove</a>
+        </div>
+        </div>
+       
       </div>
     </div>
   </div>
