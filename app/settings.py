@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'store_main.apps.StoreMainConfig',
     'cart.apps.CartConfig',
     'users.apps.UsersConfig',
+    'payments.apps.PaymentsConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -136,3 +137,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_PUBLISHER_KEY = os.getenv('SECRET_PUBLISHER_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+WHSEC_SECRET = os.getenv('WHSEC_SECRET')

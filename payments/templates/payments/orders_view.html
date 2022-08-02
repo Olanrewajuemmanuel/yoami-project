@@ -1,0 +1,11 @@
+<a href="/">Home</a>
+{% for order in order_items %}
+<div class="order">
+    <h3>Your order:</h3>
+    {% if order.active %}
+    <span>Active</span>
+    {% endif %}
+    <p>Product id: {{ order.product_id }}</p>
+    <p>Order email: {{ order.order_email }}</p>
+</div>
+{% endfor %}

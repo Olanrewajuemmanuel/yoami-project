@@ -1,0 +1,29 @@
+{% load slash_price %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buy cool new product</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <section>
+        {% if item %}
+      <div class="product">
+        <img src="{{item.image_set.first.path_to_img.url}}" alt="{{item.title}}" width="300" />
+        <div class="description">
+          <h3>{{ item.title }}</h3>
+          <h5>Item unit price: ${{ item.price|slash_price:item.discount_percentage }}</h5>
+        </div>
+      </div>
+
+      <form action="{% url 'payments:payment_checkout' item.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+      {% else %}
+      <p>No item to checkout</p>
+      {% endif %}
+    </section>
+  </body>
+</html>

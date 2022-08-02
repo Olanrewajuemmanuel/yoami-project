@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from payments.views import my_webhook_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store_main.urls')),
+    path('stripe/webhooks/', my_webhook_view, name="stripe_webhook"),
     path('auth/', include('users.urls')),
     path('cart/', include('cart.urls')),
+    path('payments/', include('payments.urls')),
 ]

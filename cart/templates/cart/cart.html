@@ -54,11 +54,11 @@
         <p class="fw-bold">Total: <span class="total">${{ cart_item.saved_item.price|slash_price:cart_item.saved_item.discount_percentage }}</span></p>
       </div>
       <div class="col">
-        <div class="row">
-           <div class="col-6">
-            <a href="#" class="mx-3 text-decoration-none">Checkout</a>
+        <div class="d-flex justify-content-around">
+           <div class="col">
+            <a href="{% url 'payments:payment_checkout' cart_item.saved_item.id  %}" class="mx-3 text-decoration-none">Checkout</a>
         </div>
-        <div class="col-6">
+        <div class="col">
             <a href="{% url 'cart:cart_delete' cart_item.saved_item.id %}" class="text-danger text-decoration-none">Remove</a>
         </div>
         </div>
